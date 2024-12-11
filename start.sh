@@ -92,6 +92,9 @@ unset no_proxy
 unset HTTP_PROXY
 unset HTTPS_PROXY
 unset NO_PROXY
+git config --global --unset http.proxy
+git config --global --unset https.proxy
+git config --global --unset http.sslverify
 
 
 ## Clash 订阅地址检测及配置文件下载
@@ -192,7 +195,10 @@ function proxy_on() {
 	export no_proxy=127.0.0.1,localhost
     	export HTTP_PROXY=http://127.0.0.1:7890
     	export HTTPS_PROXY=http://127.0.0.1:7890
- 	export NO_PROXY=127.0.0.1,localhost
+ 	export NO_PROXY=127.0.0.1,localhost,192.168
+        git config --global http.proxy http://127.0.0.1:7890
+	git config --global https.proxy http://127.0.0.1:7890
+	git config --global http.sslverify false
 	echo -e "\033[32m[√] 已开启代理\033[0m"
 }
 
@@ -204,6 +210,9 @@ function proxy_off(){
   	unset HTTP_PROXY
 	unset HTTPS_PROXY
 	unset NO_PROXY
+        git config --global --unset http.proxy
+	git config --global --unset https.proxy
+        git config --global --unset http.sslverify
 	echo -e "\033[31m[×] 已关闭代理\033[0m"
 }
 EOF
